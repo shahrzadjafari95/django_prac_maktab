@@ -11,7 +11,7 @@
           <span class="lnr lnr-arrow-right"></span
           ><a href="{% url 'blog:index' %}">Blog </a>
           <span class="lnr lnr-arrow-right"></span>
-          <a href="{% url 'blog:single' %}"> Blog Details Page</a>
+          <a href="{% url 'blog:single' pid=post.id %}"> Blog Details Page</a>
         </p>
       </div>
     </div>
@@ -50,7 +50,8 @@
                 <span class="lnr lnr-calendar-full"></span>
               </p>
               <p class="view col-lg-12 col-md-12 col-6">
-                <a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span>
+                <a href="#">{{post.counted_view}}</a>
+                <span class="lnr lnr-eye"></span>
               </p>
               <p class="comments col-lg-12 col-md-12 col-6">
                 <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
