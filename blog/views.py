@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
+
 from blog.models import Post
-from datetime import datetime
 
 
 # Create your views here.
@@ -11,19 +12,23 @@ from datetime import datetime
 #     context = {'posts': posts}
 #     return render(request, 'blog/blog-home.html', context)
 
-
+## practice 1.1 in chapter6
 def blog_view(request):
-    current_time = datetime.now()
-    posts = Post.objects.filter(published_date__lte=current_time)
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
+
+## practice 1.2 in chapter6
+# def single_view(request, pid):
+#     post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
+#     post.counted_view += 1
+#     post.save()
+#     context = {'post': post}
+#     return render(request, 'blog/blog-single.html', context)
 
 
 def single_view(request, pid):
     post = get_object_or_404(Post, pk=pid)
-    if post:
-        post.counted_view += 1
-        post.save()
     context = {'post': post}
     return render(request, 'blog/blog-single.html', context)
 
