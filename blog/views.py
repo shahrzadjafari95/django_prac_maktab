@@ -27,28 +27,18 @@ def blog_view(request):
 #     context = {'post': post}
 #     return render(request, 'blog/blog-single.html', context)
 
-
+### practice 2 in chapter6
 def single_view(request, pid):
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
-    post = get_object_or_404(Post, pk=pid)
+    post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
     context = {'post': post,
                'next': posts.filter(id__gt=post.id).order_by('id').first(),
                'previous': posts.filter(id__lt=post.id).order_by('-id').first()
                }
     return render(request, 'blog/blog-single.html', context)
 
-## for test
-# def test(request, name, family, age):
-#     context = {'name': name, 'family': family, 'age': age}
-#     return render(request, 'test.html', context)
 
 
-# def test2(request, pid):
-#     context = {'pid': pid}
-#     return render(request, 'test.html', context)
 
 
-# def test3(request, pid):
-#     post = get_object_or_404(Post, pk=pid)
-#     context = {'post': post}
-#     return render(request, 'test.html', context)
+
