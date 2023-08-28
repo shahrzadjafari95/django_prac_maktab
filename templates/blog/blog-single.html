@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% load blog_tags %} {% block
-content %}
+{% extends 'base.html' %} {%load static%} {%load blog_tags%} {% block content %}
 <!-- start banner Area -->
 <section class="relative about-banner">
   <div class="overlay overlay-bg"></div>
@@ -340,7 +339,7 @@ content %}
             </form>
           </div>
           {% include 'blog/blog-writer.html' %} {%include 'blog/blog-ads.html'%}
-          {% include 'blog/blog-poppost.html' %}
+          {% latest_post %}
 
           <div class="single-sidebar-widget post-category-widget">
             <h4 class="category-title">Post Catgories</h4>

@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-
 from blog.models import Post
 
 
@@ -31,11 +30,17 @@ def blog_view(request):
 def single_view(request, pid):
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
+    post.counted_view += 1
+    post.save()
     context = {'post': post,
                'next': posts.filter(id__gt=post.id).order_by('id').first(),
                'previous': posts.filter(id__lt=post.id).order_by('-id').first()
                }
     return render(request, 'blog/blog-single.html', context)
+
+
+def test_view(request, name):
+    return render(request, 'test.html')
 
 
 
