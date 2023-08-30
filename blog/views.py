@@ -12,8 +12,12 @@ from blog.models import Post
 #     return render(request, 'blog/blog-home.html', context)
 
 ## practice 1.1 in chapter6
-def blog_view(request):
+def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
+    if kwargs.get('cat_name') is not None:
+        posts = posts.filter(category__name=kwargs['cat_name'])
+    if kwargs.get('author_username') is not None:
+        posts = posts.filter(author__username=kwargs['author_username'])
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
 
@@ -43,14 +47,16 @@ def blog_category(request, cat_name):
     posts = Post.objects.filter(status=1)
     posts = posts.filter(category__name=cat_name)
     context = {'posts': posts}
-    return render(request,'blog/blog-home.html', context)
+    return render(request, 'blog/blog-home.html', context)
+
+
+def blog_search(request):
+    posts = Post.objects.filter(status=1)
+    if request.method == 'GET':
+        posts = posts.filter(content__contains=request.GET.get('s'))
+    context = {'posts': posts}
+    return render(request, 'blog/blog-home.html', context)
 
 
 def test_view(request, name):
     return render(request, 'test.html')
-
-
-
-
-
-
