@@ -41,8 +41,9 @@ def popularpost():
 
 @register.inclusion_tag('blog/blog-poppost.html')
 def latest_post(arg=3):
-    posts = Post.objects.filter(status=1).order_by('published_date')[:arg]
+    posts = Post.objects.filter(status=1).order_by('-counted_view')[:arg]
     return {'posts': posts}
+
 
 # this code write for blog-post-categories.html and this code use in this page, after that use it,
 # we can use code in main page
