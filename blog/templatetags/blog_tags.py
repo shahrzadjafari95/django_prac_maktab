@@ -48,10 +48,14 @@ def latest_post(arg=3):
 # this code write for blog-post-categories.html and this code use in this page, after that use it,
 # we can use code in main page
 @register.inclusion_tag('blog/blog-post-categories.html')
-def post_categories():
+def post_categories(arg=5):
     posts = Post.objects.filter(status=1)
     categories = Category.objects.all()
     cat_dict = {}
     for name in categories:
         cat_dict[name] = posts.filter(category=name).count()
-    return {'categories': cat_dict}
+    ## sorted items according key(secont item or x[1])
+    sorted_category_by_number = sorted(cat_dict.items(), key=lambda x: x[1], reverse=True)
+    converted_dict = dict(sorted_category_by_number)
+    converted_dict = dict(list(converted_dict.items())[:arg])
+    return {'categories': converted_dict}
