@@ -31,6 +31,21 @@ def contact_view(request):
     return render(request, 'website/contact.html', {'form': form})
 
 
+def newsletter_view(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Your message has been sent successfully')
+        else:
+            messages.add_message(request, messages.ERROR, 'invalid email, try again ')  # redirect to same page
+            # return HttpResponseRedirect('/')  ## redirect to home page
+    else:
+        form = NewsletterForm()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    # return HttpResponseRedirect('/')
+
+
 def test_view(request):
     if request.method == 'POST':  ## if user send data
         form = NameForm(request.POST)  ## form = everything from user put in NameForm
@@ -55,13 +70,3 @@ def test_view(request):
         #     return HttpResponse('not valid')
     form = ContactForm()
     return render(request, 'test.html', {'form': form})
-
-
-def newsletter_view(request):
-    if request.method == 'POST':
-        form = NewsletterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-    else:
-        return HttpResponseRedirect('/')
