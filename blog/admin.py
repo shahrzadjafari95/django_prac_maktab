@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Post, Category
 
 
@@ -10,12 +11,12 @@ class PostAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = ('title', 'status', 'author', 'counted_view', 'published_date', 'created_date')
     list_filter = ('status', 'published_date')
-    # ordering = ['created_date']
+    ordering = ['created_date']
     search_fields = ['title', 'content']
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name',)
+    list_display = ('name', 'id',)
 
 
 admin.site.register(Category, CategoryAdmin)
