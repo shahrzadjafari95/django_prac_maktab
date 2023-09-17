@@ -1,3 +1,4 @@
+from captcha.fields import CaptchaField
 from django import forms
 
 from website.models import Contact, Newsletter
@@ -11,6 +12,8 @@ class NameForm(forms.Form):
 
 
 class ContactForm(forms.ModelForm):
+    captcha = CaptchaField()  # captcha for contact form
+
     class Meta:
         model = Contact  ## میتوانیم تمام فیلر های داخل مدل را به صورت بک فرم نمایش دهیم
         fields = '__all__'
