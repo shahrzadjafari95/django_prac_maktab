@@ -1,7 +1,7 @@
 from django import template
 from django.utils import timezone
 
-from blog.models import Post, Category
+from blog.models import Post, Category, Comment
 
 register = template.Library()
 
@@ -59,3 +59,8 @@ def post_categories(arg=5):
     converted_dict = dict(sorted_category_by_number)
     converted_dict = dict(list(converted_dict.items())[:arg])
     return {'categories': converted_dict}
+
+
+@register.simple_tag(name='comment_count')
+def function(pid):
+    return Comment.objects.filter(post=pid, approved=1).count()  ## this code filter post according pid and approved
