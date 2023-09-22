@@ -38,6 +38,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     subject = models.CharField(max_length=255)
