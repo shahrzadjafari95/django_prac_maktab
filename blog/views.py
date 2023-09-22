@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
+from blog.forms import CommentForm
 from blog.models import Post, Comment
 
 
@@ -44,15 +46,25 @@ def blog_view(request, **kwargs):
 
 ### practice 2 in chapter6
 def single_view(request, pid):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # this message show in admin panel after submitted comment
+            messages.add_message(request, messages.SUCCESS, 'your comment submitted successfully')
+        else:
+            messages.add_message(request, messages.ERROR, 'your comment didnt submitted ')
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
     comments = Comment.objects.filter(post=post.id, approved=1).order_by('-created_date')
+    form = CommentForm()
     post.counted_view += 1
     post.save()
     context = {'post': post,
                'next': posts.filter(id__gt=post.id).order_by('id').first(),
                'previous': posts.filter(id__lt=post.id).order_by('-id').first(),
-               'comments': comments
+               'comments': comments,
+               'form': form
                }
     return render(request, 'blog/blog-single.html', context)
 
