@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'debug_toolbar',
     'captcha',
+    'accounts',
 
 ]
 SITE_ID = 2
