@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from website.forms import ContactForm, NewsletterForm
+from website.forms import ContactForm, NewsletterForm, NameForm
 
 
 # Create your views here.
