@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
@@ -25,8 +26,10 @@ def login_view(request):
         return redirect('/')  # redirect to home page
 
 
+@login_required
 def logout_view(request):
-    pass
+    logout(request)
+    return redirect('/')
 
 
 def signup_view(request):
