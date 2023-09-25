@@ -39,7 +39,8 @@
                         <ul class="tags">
                             {% for cat in post.category.all %}
                             <li>
-                                <a href="#">{{ cat.name }}</a>{%if not forloop.last%},{%endif%}
+                                <a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }}</a>
+                                {%if not forloop.last%},{%endif%}
                             </li>
                             {% endfor %}
                         </ul>
@@ -210,6 +211,11 @@
 <!--    })();-->
 <!--
 ## this section design for disqus comment, I dont need to this field now
+
+
+
+
+
 
 
 
