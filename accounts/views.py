@@ -1,6 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 
 
@@ -8,7 +9,7 @@ from django.shortcuts import render, redirect
 
 
 def login_view(request):
-    if not request.user.is_authenticated:  # this user dont login to panel
+    if not request.user.is_authenticated:  # this user not login to panel
         if request.method == "POST":
             form = AuthenticationForm(request=request, data=request.POST)
             if form.is_valid():
@@ -33,4 +34,19 @@ def logout_view(request):
 
 
 def signup_view(request):
-    return render(request, 'accounts/signup.html')
+    if not request.user.is_authenticated:  # if user not login in panel
+        if request.method == 'POST':  # if user post the information from form
+            form = UserCreationForm(request.POST)  # the form fill of user information input
+            if form.is_valid():
+                form.save()
+                # messages.add_message(request, messages.SUCCESS, 'you registered successfully')
+                return redirect('/accounts/login')  # redirect to home page
+            else:
+                messages.add_message(request, messages.ERROR, 'you didnt registered  ')
+                return redirect('/')
+        else:
+            form = UserCreationForm()  # if request.method = get that's mean user click to sing up url
+            context = {'form': form}
+            return render(request, 'accounts/signup.html', context)  # we show signup page
+    else:
+        return redirect('/')
