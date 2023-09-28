@@ -38,11 +38,11 @@ def newsletter_view(request):
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Your message has been sent successfully')
         else:
-            messages.add_message(request, messages.ERROR, 'invalid email, try again ')  # redirect to same page
+            messages.add_message(request, messages.ERROR, 'invalid email, try again ')
             # return HttpResponseRedirect('/')  ## redirect to home page
     else:
         form = NewsletterForm()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # redirect to same page
     # return HttpResponseRedirect('/')
 
 
