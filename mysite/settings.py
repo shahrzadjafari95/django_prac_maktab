@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'captcha',
     'accounts',
-
 ]
 SITE_ID = 2
 ROBOTS_USE_HOST = True
@@ -192,3 +191,5 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'  # new
