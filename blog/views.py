@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from blog.forms import CommentForm
@@ -45,9 +45,11 @@ def blog_view(request, **kwargs):
 #     return render(request, 'blog/blog-single.html', context)
 
 ### practice 2 in chapter6
+
+
 def single_view(request, pid):
     if request.method == "POST":
-        form = CommentForm(request.POST)
+        form = CommentForm(request.POST)  # if user send a comment for blog
         if form.is_valid():
             form.save()
             # this message show in admin panel after submitted comment
@@ -56,17 +58,21 @@ def single_view(request, pid):
             messages.add_message(request, messages.ERROR, 'your comment didnt submitted ')
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
-    comments = Comment.objects.filter(post=post.id, approved=1).order_by('-created_date')
-    form = CommentForm()
-    post.counted_view += 1
-    post.save()
-    context = {'post': post,
-               'next': posts.filter(id__gt=post.id).order_by('id').first(),
-               'previous': posts.filter(id__lt=post.id).order_by('-id').first(),
-               'comments': comments,
-               'form': form
-               }
-    return render(request, 'blog/blog-single.html', context)
+    if not post.login_require:  # if login require don't need (that's mean we can see every thing in blog single)
+        # show the comment that approved in admin panel and order by last comment
+        comments = Comment.objects.filter(post=post.id, approved=1).order_by('-created_date')
+        form = CommentForm()  # if request.method = get we show comment form to single page
+        post.counted_view += 1
+        post.save()
+        context = {'post': post,
+                   'next': posts.filter(id__gt=post.id).order_by('id').first(),
+                   'previous': posts.filter(id__lt=post.id).order_by('-id').first(),
+                   'comments': comments,
+                   'form': form
+                   }
+        return render(request, 'blog/blog-single.html', context)
+    else:
+        return redirect('/accounts/login/')
 
 
 def blog_category(request, cat_name):
