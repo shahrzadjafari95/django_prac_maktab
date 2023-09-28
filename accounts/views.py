@@ -40,7 +40,7 @@ def signup_view(request):
             form = UserCreationForm(request.POST)  # the form fill of user information input
             if form.is_valid():
                 form.save()
-                # messages.add_message(request, messages.SUCCESS, 'you registered successfully')
+                messages.success(request, 'Account created successfully')
                 return redirect('/accounts/login')  # redirect to home page
             else:
                 messages.add_message(request, messages.ERROR, 'you didnt registered  ')
