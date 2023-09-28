@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 
@@ -18,8 +19,8 @@ def login_view(request):
                 user = authenticate(request, username=username, password=password)  # we create an object of user input
                 if user is not None:  # if exists
                     login(request, user)  # user login to site
-                    return redirect('/')  # redirect to home page
-        else:  # if request.method == get ( this means click on the login url )
+                    return redirect('/')  # after login redirect to home page
+        else:  # if request.method = get ( this means click on the login url )
             form = AuthenticationForm()
             context = {'form': form}
             return render(request, 'accounts/login.html', context)  # show login page
@@ -30,7 +31,7 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def signup_view(request):
