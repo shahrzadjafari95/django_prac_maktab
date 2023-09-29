@@ -191,5 +191,3 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-
-AUTH_USER_MODEL = 'accounts.CustomUser'  # new

@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
@@ -18,7 +18,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg')
     tag = TaggableManager()
     category = models.ManyToManyField(Category)
-    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     counted_view = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
     login_require = models.BooleanField(default=False)
