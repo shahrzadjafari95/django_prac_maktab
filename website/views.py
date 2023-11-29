@@ -61,9 +61,9 @@ def test_view(request):
 
 
 def test_view(request):
-    if request.method == 'POST':  ## if user send data
-        form = ContactForm(request.POST or None)  ## form = everything from user put in NameForm
-        if form.is_valid():  ## if data is valid according to the option of field
+    if request.method == 'POST':  # if user send data
+        form = ContactForm(request.POST or None)  # form = everything from user put in NameForm
+        if form.is_valid():  # if data is valid according to the option of field
             form.save()
             # return HttpResponse('done')
         # else:

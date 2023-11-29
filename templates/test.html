@@ -5,10 +5,13 @@
     <title>test</title>
 </head>
 <body>
-<form action="{% url 'website:test' %}" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit">
+<!--<form action="{% url 'website:test' %}" method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{posts}}-->
+<p>{{post.content}}</p>
+<!--<p>{{family_name}}</p>-->
+    <!--    {{form.as_p}}-->
+    <!--    <input type="submit" value="Submit">-->
 
 </form>
 </body>
