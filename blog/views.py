@@ -15,7 +15,8 @@ from blog.models import Post, Comment
 #     context = {'posts': posts}
 #     return render(request, 'blog/blog-home.html', context)
 
-## practice 1.1 in chapter6
+
+# practice 1.1 in chapter6
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('-published_date')
     if kwargs.get('cat_name') is not None:
@@ -56,8 +57,9 @@ def single_view(request, pid):
             messages.add_message(request, messages.SUCCESS, 'your comment submitted successfully')
         else:
             messages.add_message(request, messages.ERROR, 'your comment didnt submitted ')
-    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
-    post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())  # for posts that have these conditions
+    # post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
+    post = get_object_or_404(posts, pk=pid)
     if not post.login_require:  # if login require don't need (that's mean we can see every thing in blog single)
         # show the comment that approved in admin panel and order by last comment
         comments = Comment.objects.filter(post=post.id, approved=1).order_by('-created_date')
@@ -91,4 +93,6 @@ def blog_search(request):
 
 
 def test_view(request, name):
-    return render(request, 'test.html')
+    post = Post.objects.get(title=name)
+    context = {'post': post}
+    return render(request, 'test.html', context)
