@@ -8,11 +8,12 @@ from .models import Post, Category, Comment
 
 
 class PostAdmin(SummernoteModelAdmin):
-    date_hierarchy = 'created_date'
+    date_hierarchy = 'created_date'  # add a column under search field according date
     empty_value_display = '-empty-'
     list_display = ('title', 'status', 'author', 'login_require', 'counted_view', 'published_date', 'created_date')
     list_filter = ('status', 'published_date')
-    ordering = ['created_date']
+    ordering = ['-created_date']
+    # ordering = ['-counted_view']
     search_fields = ['title', 'content']
     summernote_fields = ('content',)
 
