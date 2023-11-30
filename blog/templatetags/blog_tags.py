@@ -12,8 +12,8 @@ def say_hello():
 
 
 @register.simple_tag()
-def function(a=8):
-    return a + 2
+def function(a, b=4):  # we can set default value for argument or not set 
+    return a + 2 + b
 
 
 @register.simple_tag(name='count_total_posts')

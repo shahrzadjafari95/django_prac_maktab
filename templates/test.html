@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,12 @@
 <!--<form action="{% url 'website:test' %}" method="post">-->
 <!--    {% csrf_token %}-->
 <!--    {{posts}}-->
-<p>{{post.content}}</p>
+<!--<p>{{post.content}}</p>-->
 <!--<p>{{family_name}}</p>-->
     <!--    {{form.as_p}}-->
     <!--    <input type="submit" value="Submit">-->
+<h4>test: {% say_hello %}</h4>
+<h3>{% function 12 14%}</h3>
 
 </form>
 </body>
