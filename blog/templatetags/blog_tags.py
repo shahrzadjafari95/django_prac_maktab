@@ -51,7 +51,7 @@ def popular_post(arg=3):
 # we can use code in main page
 @register.inclusion_tag('blog/blog-post-categories.html')
 def post_categories(arg=5):
-    posts = Post.objects.filter(status=1)
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     categories = Category.objects.all()
     cat_dict = {}
     for name in categories:
