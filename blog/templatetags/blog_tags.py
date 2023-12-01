@@ -54,13 +54,13 @@ def post_categories(arg=5):
     posts = Post.objects.filter(status=1, published_date__lte=timezone.now())
     categories = Category.objects.all()
     cat_dict = {}
-    for name in categories:
-        cat_dict[name] = posts.filter(category=name).count()
-    ## sorted items according key(secont item or x[1])
-    sorted_category_by_number = sorted(cat_dict.items(), key=lambda x: x[1], reverse=True)
-    converted_dict = dict(sorted_category_by_number)
-    converted_dict = dict(list(converted_dict.items())[:arg])
-    return {'categories': converted_dict}
+    for name in categories:  # categories= all of category
+        cat_dict[name] = posts.filter(category=name).count()  # for example: {'gym':3, 'entertainment': 2 ,...}
+    # sorted items according key(second item or x[1]) and maximum number(reverse = True)
+    sorted_category_by_number = sorted(cat_dict.items(), key=lambda x: x[1], reverse=True)  # output:[list of tuples]
+    sorted_category_by_number = dict(sorted_category_by_number[:arg])  # slice the list of tuples
+    # convert_sort_category_dict = dict(sorted_category_by_number)  # convert to dictionary
+    return {'categories': sorted_category_by_number}
 
 
 @register.simple_tag(name='comment_count')
