@@ -43,7 +43,7 @@ def latest_post():
 # This tag shows posts according to the maximum view
 @register.inclusion_tag('blog/blog-popular_post.html')
 def popular_post(arg=3):
-    posts = Post.objects.filter(status=1).order_by('-counted_view')[:arg]
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('-counted_view')[:arg]
     return {'posts': posts}
 
 
