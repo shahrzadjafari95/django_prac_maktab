@@ -12,7 +12,7 @@ def say_hello():
 
 
 @register.simple_tag()
-def function(a, b=4):  # we can set default value for argument or not set 
+def function(a, b=4):  # we can set default value for argument or not set
     return a + 2 + b
 
 
