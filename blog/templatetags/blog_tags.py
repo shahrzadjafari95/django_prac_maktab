@@ -33,8 +33,9 @@ def snippets(value):
     return value[:10]
 
 
-@register.inclusion_tag('popularpost.html')
-def popularpost():
+# This tag shows posts according to the latest posts that have been published
+@register.inclusion_tag('blog/blog-latest.html')
+def latest_post():
     posts = Post.objects.filter(status=1).order_by('-published_date')[:3]
     return {'posts': posts}
 
