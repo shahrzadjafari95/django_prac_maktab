@@ -36,7 +36,7 @@ def snippets(value):
 # This tag shows posts according to the latest posts that have been published
 @register.inclusion_tag('blog/blog-latest.html')
 def latest_post():
-    posts = Post.objects.filter(status=1).order_by('-published_date')[:3]
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('-published_date')[:3]
     return {'posts': posts}
 
 
