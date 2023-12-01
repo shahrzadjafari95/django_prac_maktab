@@ -47,7 +47,7 @@ def popular_post(arg=3):
     return {'posts': posts}
 
 
-# this code write for blog-post-categories.html and this code use in this page, after that use it,
+# this code write for blog-post-categories.html and use in this page, after that use it,
 # we can use code in main page
 @register.inclusion_tag('blog/blog-post-categories.html')
 def post_categories(arg=5):
