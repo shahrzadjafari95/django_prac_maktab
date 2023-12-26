@@ -8,9 +8,9 @@
             <div class="about-content col-lg-12">
                 <h1 class="text-white">Contact Us</h1>
                 <p class="text-white link-nav">
-                    <a href="index.html">Home </a>
+                    <a href="{% url 'website:index' %}">Home </a>
                     <span class="lnr lnr-arrow-right"></span>
-                    <a href="contact.html"> Contact Us</a>
+                    <a href="{% url 'website:contact' %}"> Contact Us</a>
                 </p>
             </div>
         </div>
@@ -96,9 +96,9 @@
               <textarea
                       class="common-textarea form-control"
                       name="message"
-                      placeholder="Enter Messege"
+                      placeholder="Enter Message"
                       onfocus="this.placeholder = ''"
-                      onblur="this.placeholder = 'Enter Messege'"
+                      onblur="this.placeholder = 'Enter Message'"
                       required=""
               ></textarea>
                         </div>
