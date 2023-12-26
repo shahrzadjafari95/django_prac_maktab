@@ -25,12 +25,12 @@ def blog_view(request, **kwargs):
         posts = posts.filter(author__username=kwargs['author_username'])
     if kwargs.get('tag_name') is not None:
         posts = posts.filter(tag__name__in=[kwargs['tag_name']])
-    posts = Paginator(posts, 3)
+    posts = Paginator(posts, 3)  # posts that filter by above conditions
     try:
         page_number = request.GET.get('page')
         posts = posts.get_page(page_number)
-    except PageNotAnInteger:
-        posts = posts.get_page(1)
+    except PageNotAnInteger:  # if user enter a string or not int object
+        posts = posts.get_page(1)  # return page1
     except EmptyPage:
         posts = posts.get_page(1)
     context = {'posts': posts}
@@ -77,15 +77,16 @@ def single_view(request, pid):
         return redirect('/accounts/login/')
 
 
-def blog_category(request, cat_name):
-    posts = Post.objects.filter(status=1)
-    posts = posts.filter(category__name=cat_name)
-    context = {'posts': posts}
-    return render(request, 'blog/blog-home.html', context)
+# def blog_category(request, cat_name):
+#     posts = Post.objects.filter(status=1)
+#     posts = posts.filter(category__name=cat_name)
+#     context = {'posts': posts}
+#     return render(request, 'blog/blog-home.html', context)
 
 
 def blog_search(request):
     posts = Post.objects.filter(status=1)
+    print(request.__dict__)
     if request.method == 'GET':
         posts = posts.filter(content__contains=request.GET.get('s'))
     context = {'posts': posts}
