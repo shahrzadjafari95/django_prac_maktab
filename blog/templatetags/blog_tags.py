@@ -65,4 +65,5 @@ def post_categories(arg=5):
 
 @register.simple_tag(name='comment_count')
 def function(pid):
-    return Comment.objects.filter(post=pid, approved=1).count()  ## this code filter post according pid and approved
+    return Comment.objects.filter(post=pid, approved=1).count()  # this code filter comment according post.pid and
+    # approved comments and then count the comments

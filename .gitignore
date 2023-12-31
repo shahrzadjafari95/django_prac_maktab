@@ -3,3 +3,4 @@ templates/test.html
 *.pyc
 blog/templatetags/blog_tags.py
 blog/templatetags/blog_tags.py
+*.pyc
