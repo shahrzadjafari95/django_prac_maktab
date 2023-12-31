@@ -45,10 +45,13 @@ def blog_view(request, **kwargs):
 #     context = {'post': post}
 #     return render(request, 'blog/blog-single.html', context)
 
-### practice 2 in chapter6
+# practice 2 in chapter6
 
 
 def single_view(request, pid):
+    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())  # for posts that have these conditions
+    # post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
+    post = get_object_or_404(posts, pk=pid)
     if request.method == "POST":
         form = CommentForm(request.POST)  # if user send a comment for blog
         if form.is_valid():
@@ -56,10 +59,7 @@ def single_view(request, pid):
             # this message show in admin panel after submitted comment
             messages.add_message(request, messages.SUCCESS, 'your comment submitted successfully')
         else:
-            messages.add_message(request, messages.ERROR, 'your comment didnt submitted ')
-    posts = Post.objects.filter(status=1, published_date__lte=timezone.now())  # for posts that have these conditions
-    # post = get_object_or_404(Post, pk=pid, status=1, published_date__lte=timezone.now())
-    post = get_object_or_404(posts, pk=pid)
+            messages.add_message(request, messages.ERROR, "your comment didn't submitted ")
     if not post.login_require:  # if login require don't need (that's mean we can see every thing in blog single)
         # show the comment that approved in admin panel and order by last comment
         comments = Comment.objects.filter(post=post.id, approved=1).order_by('-created_date')
