@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.urls import reverse
 from taggit.managers import TaggableManager
 
 
@@ -17,8 +16,10 @@ class Post(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg')
     tag = TaggableManager()
-    category = models.ManyToManyField(Category)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    category = models.ManyToManyField(Category)  # any post possible have several category and any category possible
+    # have several posts
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # any author possible have several posts but
+    # any post have one author
     counted_view = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
     login_require = models.BooleanField(default=False)
@@ -39,7 +40,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)  # any post possible have many comments
+    # If a post is deleted, all its comments will also be deleted :on_deleted = cascade
     name = models.CharField(max_length=255)
     email = models.EmailField()
     subject = models.CharField(max_length=255)
