@@ -55,8 +55,10 @@ def test_view(request):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             return HttpResponse('done')
-    else:
-        form = NameForm()  ## if method is get
+        else:
+            return HttpResponse('not done')
+
+    form = NameForm()  # if method is get form = nameform
     return render(request, 'test.html', {'form': form})
 
 
