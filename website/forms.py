@@ -15,7 +15,7 @@ class ContactForm(forms.ModelForm):
     captcha = CaptchaField()  # captcha for contact form
 
     class Meta:
-        model = Contact  ## میتوانیم تمام فیلر های داخل مدل را به صورت بک فرم نمایش دهیم
+        model = Contact  # میتوانیم تمام فیلر های داخل مدل را به صورت بک فرم نمایش دهیم
         fields = '__all__'
 
 
