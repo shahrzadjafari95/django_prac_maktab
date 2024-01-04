@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from website.forms import ContactForm, NewsletterForm, NameForm
+from website.models import Contact
 
 
 # Create your views here.
@@ -72,3 +73,19 @@ def test_for_contact_form_with_modelform(request):
         #     return HttpResponse('not valid')
     form = ContactForm()
     return render(request, 'test.html', {'form': form})
+
+
+def test_for_contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')  # چیزی که کاربر در فیلد نام وارد کرده است را بگیر
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        c = Contact()  # create an object that connect to the contact model
+        c.name = name  # هر ایتم که از کاربر دریافت کردیم از طریق فرم در مدل کانتکت اضافه میکنیم، یعنی مثلا داخل نام
+        # مدل این نامی که از کاربر گرفیتم قرار میدیم
+        c.email = email
+        c.subject = subject
+        c.message = message
+        c.save()
+    return render(request, 'website/form_in_html.html')
