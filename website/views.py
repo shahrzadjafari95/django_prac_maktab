@@ -47,9 +47,9 @@ def newsletter_view(request):
 
 
 def test_view(request):
-    if request.method == 'POST':  ## if user send data
-        form = NameForm(request.POST)  ## form = everything from user put in NameForm
-        if form.is_valid():  ## if data is valid according to the option of field
+    if request.method == 'POST':  # if user send data
+        form = NameForm(request.POST)  # form = everything from user put in NameForm
+        if form.is_valid():  # if data is valid according to the option of field
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             subject = form.cleaned_data['subject']
