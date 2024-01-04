@@ -18,14 +18,14 @@ def about_view(request):
 
 def contact_view(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST)  # request.post : input information of user that enter the form
         if form.is_valid():
             my_form = form.save(commit=False)
             my_form.name = 'unknown'
             my_form.save()
             messages.add_message(request, messages.SUCCESS, 'your ticket submitted successfully')
         else:
-            messages.add_message(request, messages.ERROR, 'your ticket didnt submitted ')
+            messages.add_message(request, messages.ERROR, "your ticket didn't submitted ")
     else:
         form = ContactForm()
     return render(request, 'website/contact.html', {'form': form})
