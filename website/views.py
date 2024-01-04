@@ -68,9 +68,6 @@ def test_for_contact_form_with_modelform(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            # return HttpResponse('done')
-        # else:
-        #     return HttpResponse('not valid')
     form = ContactForm()
     return render(request, 'test.html', {'form': form})
 
