@@ -42,7 +42,7 @@ def newsletter_view(request):
             # return HttpResponseRedirect('/')  ## redirect to home page
     else:
         form = NewsletterForm()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # redirect to same page
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'), {'form': form})  # redirect to same page
     # return HttpResponseRedirect('/')
 
 
