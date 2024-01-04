@@ -1,4 +1,4 @@
-{% load blog_tags %}
+<!--{% load blog_tags %}-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +6,10 @@
     <title>test</title>
 </head>
 <body>
-<!--<form action="{% url 'website:test' %}" method="post">-->
-<!--    {% csrf_token %}-->
-<!--    {{posts}}-->
-<!--<p>{{post.content}}</p>-->
-<!--<p>{{family_name}}</p>-->
-    <!--    {{form.as_p}}-->
-    <!--    <input type="submit" value="Submit">-->
-<!--<h4>test: {% say_hello %}</h4>-->
-<!--<h3>{% function 12 14%}</h3>-->
-<!--<p>{% count_total_posts as count %}</p>-->
-<!--<p>{{count}}</p>-->
-<!--<p>{% total_posts as posts %}</p>-->
-<!--{% for post in posts %}-->
-<!--{{post.content|snippets}}-->
-<!--{% endfor %}-->
-{% popular_post %}
+<form action="{% url 'website:test' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">submit</button>
 </form>
 </body>
 </html>

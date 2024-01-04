@@ -7,3 +7,4 @@ blog/templatetags/blog_tags.py
 templates/test.html
 templates/test.html
 templates/test.html
+*.pyc
