@@ -62,10 +62,10 @@ def test_view(request):
     return render(request, 'test.html', {'form': form})
 
 
-def test_view(request):
-    if request.method == 'POST':  # if user send data
-        form = ContactForm(request.POST or None)  # form = everything from user put in NameForm
-        if form.is_valid():  # if data is valid according to the option of field
+def test_for_contact_form_with_modelform(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
             form.save()
             # return HttpResponse('done')
         # else:
