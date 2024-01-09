@@ -49,7 +49,7 @@
             <div class="col-lg-6 col-sm-6 col-6 header-top-left">
               <ul>
                 {% if request.user.is_authenticated %}
-                <li><a href="">Logged in as {{request.user.username}}</a></li>
+                <li><a href="{% url 'accounts:login' %}">Logged in as {{request.user.username}}</a></li>
                 <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
                 {% else %}
                 <li><a href="{% url 'accounts:login' %}">Log in</a></li>
