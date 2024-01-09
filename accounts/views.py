@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.http import HttpResponseRedirect
@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
-
 
 def login_view(request):
     if not request.user.is_authenticated:  # this user not login to panel
@@ -18,12 +17,12 @@ def login_view(request):
                 password = form.cleaned_data.get("password")  # password = The thing that the user entered
                 user = authenticate(request, username=username, password=password)  # we create an object of user input
                 if user is not None:  # if exists
-                    login(request, user)  # user login to site
+                    login(request, user)  # login user to site
                     return redirect('/')  # after login redirect to home page
-        else:  # if request.method = get ( this means click on the login url )
-            form = AuthenticationForm()
-            context = {'form': form}
-            return render(request, 'accounts/login.html', context)  # show login page
+        # if request.method = get ( this means click on the login url )
+        form = AuthenticationForm()  # show the login form to the user
+        context = {'form': form}
+        return render(request, 'accounts/login.html', context)  # show login page
     else:  # if user login in site
         return redirect('/')  # redirect to home page
 
@@ -41,9 +40,9 @@ def signup_view(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Account created successfully')
-                return redirect('/accounts/login')  # redirect to home page
+                return redirect('/accounts/login')  # redirect to login page
             else:
-                messages.add_message(request, messages.ERROR, 'you didnt registered  ')
+                messages.add_message(request, messages.ERROR, "you didn't registered ")
                 return redirect('/')
         else:
             form = UserCreationForm()  # if request.method = get that's mean user click to sing up url
