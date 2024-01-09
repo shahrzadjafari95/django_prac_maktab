@@ -44,9 +44,8 @@ def signup_view(request):
             else:
                 messages.add_message(request, messages.ERROR, "you didn't registered ")
                 return redirect('/')
-        else:
-            form = UserCreationForm()  # if request.method = get that's mean user click to sing up url
-            context = {'form': form}
-            return render(request, 'accounts/signup.html', context)  # we show signup page
+        form = UserCreationForm()  # if request.method = get that's mean user click to sing up url
+        context = {'form': form}
+        return render(request, 'accounts/signup.html', context)  # we show signup page
     else:
         return redirect('/')
