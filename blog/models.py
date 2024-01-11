@@ -1,6 +1,8 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from taggit.managers import TaggableManager
+
+User = settings.AUTH_USER_MODEL
 
 
 class Category(models.Model):

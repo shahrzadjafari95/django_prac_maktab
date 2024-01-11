@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'captcha',
     'accounts',
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 SITE_ID = 2
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SITEMAP = True
