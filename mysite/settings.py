@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'multi_captcha_admin',
+    # 'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'captcha',
     'accounts',
+    'crispy_forms',
+
 ]
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 2
 ROBOTS_USE_HOST = True
@@ -87,9 +89,9 @@ SUMMERNOTE_CONFIG = {
     }
 }
 # captcha admin setting
-MULTI_CAPTCHA_ADMIN = {
-    'engine': 'simple-captcha',
-}
+# MULTI_CAPTCHA_ADMIN = {
+#     'engine': 'simple-captcha',
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -194,3 +196,9 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PORT = 25
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jafari.shahrzad95@gmail.com'
+EMAIL_HOST_PASSWORD = '02091396'
