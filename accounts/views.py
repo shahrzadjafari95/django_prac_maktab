@@ -1,30 +1,54 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, logout, login
+from django.contrib import messages, auth
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 
 # Create your views here.
 
+# def login_view(request):
+#     if not request.user.is_authenticated:  # this user not login to panel
+#         if request.method == "POST":
+#             form = AuthenticationForm(request=request, data=request.POST)
+#             if form.is_valid():
+#                 username = form.cleaned_data.get("username")  # username = The thing that the user entered
+#                 password = form.cleaned_data.get("password")  # password = The thing that the user entered
+#                 user = authenticate(request, username=username, password=password)  # we create an object of user input
+#                 if user is not None:  # if exists
+#                     login(request, user)  # login user to site
+#                     return redirect('/')  # after login redirect to home page
+#         # if request.method = get ( this means click on the login url )
+#         form = AuthenticationForm()  # show the login form to the user
+#         context = {'form': form}
+#         return render(request, 'accounts/login.html', context)  # show login page
+#     else:  # if user login in site
+#         return redirect('/')  # redirect to home page
+#
+
+# in this method user can log in with email or username
 def login_view(request):
-    if not request.user.is_authenticated:  # this user not login to panel
-        if request.method == "POST":
-            form = AuthenticationForm(request=request, data=request.POST)
-            if form.is_valid():
-                username = form.cleaned_data.get("username")  # username = The thing that the user entered
-                password = form.cleaned_data.get("password")  # password = The thing that the user entered
-                user = authenticate(request, username=username, password=password)  # we create an object of user input
-                if user is not None:  # if exists
-                    login(request, user)  # login user to site
-                    return redirect('/')  # after login redirect to home page
-        # if request.method = get ( this means click on the login url )
-        form = AuthenticationForm()  # show the login form to the user
-        context = {'form': form}
-        return render(request, 'accounts/login.html', context)  # show login page
-    else:  # if user login in site
-        return redirect('/')  # redirect to home page
+    if not request.user.is_authenticated:  # the user don't log in to panel
+        if request.method == 'POST':  # if user enter the information to log in form
+            userinput = request.POST['username']  # userinput = username that user input in
+            try:
+                username = User.objects.get(email=userinput)  # if user enter email in form
+            except User.DoesNotExist:
+                username = request.POST['username']
+            password = request.POST['password']
+            user = auth.authenticate(username=username, password=password)  # we create an object of user input
+
+            if user is not None:  # if user is existed
+                auth.login(request, user)  # login user
+                return redirect('/')  # redirect to home page
+            else:
+                messages.add_message(request, messages.ERROR, 'user not found!! please enter correct information')
+
+        return render(request, "accounts/login.html")  # if request.method = get show login page
+    else:
+        return redirect('/')  # if user is log in redirect to home page
 
 
 @login_required
