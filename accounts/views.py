@@ -46,6 +46,7 @@ def login_view(request):
                 return redirect('/')  # redirect to home page
             else:
                 messages.add_message(request, messages.ERROR, 'user not found!! please enter correct information')
+                return redirect('/accounts/login/')
 
         return render(request, "accounts/login.html")  # if request.method = get show login page
     else:
