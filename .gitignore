@@ -8,3 +8,6 @@ templates/test.html
 templates/test.html
 templates/test.html
 *.pyc
+blog/__pycache__/models.cpython-311.pyc
+templates/accounts/password_reset_confirm.html
+*.log
