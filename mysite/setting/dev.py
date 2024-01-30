@@ -38,4 +38,4 @@ EMAIL_USE_SSL = True
 EMAIL_SSL_VERIFICATION = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'jafari.shahrzad95@gmail.com'
-EMAIL_HOST_PASSWORD = 'eyxd flme etoy jixv'
+EMAIL_HOST_PASSWORD = 'ekcr dejn cngg rtcz'
