@@ -1,4 +1,5 @@
     PasswordResetView,
+    PasswordResetDoneView,
 from django.urls import path
 
 from . import views
@@ -15,4 +16,8 @@ urlpatterns = [
 
     path('password-reset/', PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
          name='password-reset'),
+
+    path('password-reset/done/', PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
+         name='password_reset_done'),
+
 ]
