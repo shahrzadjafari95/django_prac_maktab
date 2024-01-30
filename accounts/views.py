@@ -45,7 +45,7 @@ def login_view(request):
                 auth.login(request, user)  # login user
                 return redirect('/')  # redirect to home page
             else:
-                messages.add_message(request, messages.ERROR, 'user not found!! please enter correct information')
+                messages.add_message(request, messages.ERROR, 'username or password not correct, try again')
                 return redirect('/accounts/login/')
 
         return render(request, "accounts/login.html")  # if request.method = get show login page
