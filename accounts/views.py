@@ -1,10 +1,11 @@
 from django.contrib import messages, auth
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+
+from .forms import NewUserForm
 
 
 # Create your views here.
@@ -60,7 +61,7 @@ def logout_view(request):
 def signup_view(request):
     if not request.user.is_authenticated:  # if user not login in panel
         if request.method == 'POST':  # if user post the information from form
-            form = UserCreationForm(request.POST)  # the form fill of user information input
+            form = NewUserForm(request.POST)  # the form fill of user information input
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Account created successfully')
@@ -68,7 +69,7 @@ def signup_view(request):
             else:
                 messages.add_message(request, messages.ERROR, "you didn't registered ")
                 return redirect('/')
-        form = UserCreationForm()  # if request.method = get that's mean user click to sing up url
+        form = NewUserForm()  # if request.method = get that's mean user click to sing up url
         context = {'form': form}
         return render(request, 'accounts/signup.html', context)  # we show signup page
     else:
