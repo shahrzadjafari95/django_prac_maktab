@@ -16,17 +16,6 @@ from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*s##y$%i5-9wpm+4m(jiqpo&*d140#4!g=1&3w^hsg@1es(4z='
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,7 +44,6 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-SITE_ID = 2
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SITEMAP = True
 
@@ -125,16 +113,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -168,13 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'statics/'
-STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [
-    BASE_DIR / 'statics'
-]
-
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -195,7 +167,6 @@ INTERNAL_IPS = [
     # ...
 ]
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
 #
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_PORT = 25
@@ -205,11 +176,3 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_SSL = True
-EMAIL_SSL_VERIFICATION = False
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'jafari.shahrzad95@gmail.com'
-EMAIL_HOST_PASSWORD = 'eyxd flme etoy jixv'
